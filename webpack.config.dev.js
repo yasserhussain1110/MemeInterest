@@ -19,7 +19,8 @@ module.exports = merge(baseWebpackConfig, {
   plugins: [
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: "'development'"
+        NODE_ENV: "'development'",
+        FRIENDLY: process.env.FRIENDLY
       }
     }),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
@@ -27,7 +28,7 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      title: require("./setting").title,
+      title: require("./setting").app.title,
       filename: 'index.html',
       template: 'client/index.html',
       inject: true

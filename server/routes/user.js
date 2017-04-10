@@ -35,7 +35,7 @@ module.exports = app => {
     passport.authenticate('twitter'));
 
   app.get('/login/twitter/return',
-    passport.authenticate('twitter', {failureRedirect: '/login'}),
+    passport.authenticate('twitter', {failureRedirect: '/'}),
     function (req, res) {
       res.redirect('/');
     });

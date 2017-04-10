@@ -1,9 +1,21 @@
 const settings = {
   meme: {
-    title: "MemeInterest: Add your favorite memes"
+    app: {
+      title: "MemeInterest: Add your favorite memes"
+    },
+    nav: {
+      all: "All Memes",
+      my: "My Memes"
+    }
   },
   pin: {
-    title: "Pinterest Clone: Add you favorite images"
+    app: {
+      title: "Pinterest Clone: Add you favorite images"
+    },
+    nav: {
+      all: "All Pics",
+      my: "My Pics"
+    }
   }
 };
 
