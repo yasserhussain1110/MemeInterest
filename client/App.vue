@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    My App
+    <form method="post" action="/login">
+      <button>Login</button>
+    </form>
   </div>
 </template>
 

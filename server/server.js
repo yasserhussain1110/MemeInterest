@@ -9,9 +9,8 @@ const session = require('express-session');
 const LokiStore = require('connect-loki')(session);
 const app = express();
 
-
 app.use(session({
-  secret: 'abracadabra',
+  secret: process.env.SESSION_SECRET,
   resave: true,
   saveUninitialized: true,
   cookie: {
@@ -24,14 +23,7 @@ app.use(session({
 
 app.use(bodyParser.json());
 
-/* Set up API / Other Backend Routes */
-/*
-require('./routes/userRoutes')(app);
-require('./routes/bookRoutes')(app);
-require('./routes/tradeRequestRoutes')(app);
-require('./routes/nonAPIRoutes')(app);
-*/
-
+require('./routes/user')(app);
 
 /* Set up development server if required */
 if (process.env.NODE_ENV === "development") {
