@@ -24,6 +24,7 @@ app.use(session({
 app.use(bodyParser.json());
 
 require('./routes/user')(app);
+require('./routes/meme')(app);
 
 /* Set up development server if required */
 if (process.env.NODE_ENV === "development") {

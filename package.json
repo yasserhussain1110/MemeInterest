@@ -5,6 +5,7 @@
   "main": "server/server.js",
   "scripts": {
     "build": "webpack",
+    "fill": "node server/filler/fill.js",
     "postinstall": "npm run build",
     "start": "per-env",
     "start:production": "node server/server",
