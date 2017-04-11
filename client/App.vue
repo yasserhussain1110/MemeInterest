@@ -16,7 +16,7 @@
     name: "app",
     data() {
       return {
-        nav: "all",  // One of 'all', 'my'
+        nav: "all",  // One of 'all', 'my', 'user'
         showNewMemeModal: false
       }
     },

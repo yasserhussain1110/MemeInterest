@@ -1,55 +1,36 @@
 <template>
   <div class="meme-board">
-    <template v-if="nav==='all'">
-      <div class="item" v-bind:class="{liked: meme.iLiked}" v-for="(meme, index) in allMemes">
-        <div class="img-container">
-          <img :src="meme.url"/>
+    <div class="item" v-if="nav==='my'">
+      <div v-on:click="addMeme" class="add-meme">
+        <div class="caption">
+          <span>{{addCaption}}</span>
         </div>
-
-        <div class="description">
-          <span>{{meme.description}}</span>
-        </div>
-
-        <div class="actions">
-          <img :src="meme._addedBy.photos[0].value"/>
-          <div class="likes">
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <span>{{meme.totalLikes}}</span>
-          </div>
+        <div class="plus">
+          <i class="fa fa-plus fa-3x" aria-hidden="true"></i>
         </div>
       </div>
-    </template>
+    </div>
 
-    <template v-else-if="nav==='my'">
-      <div class="item">
-        <div v-on:click="addMeme" class="add-meme">
-          <div class="caption">
-            <span>{{addCaption}}</span>
-          </div>
-          <div class="plus">
-            <i class="fa fa-plus fa-3x" aria-hidden="true"></i>
-          </div>
-        </div>
+    <div class="item" v-bind:class="{liked: meme.iLiked}" v-for="(meme, index) in memesToShow">
+      <div class="img-container">
+        <img :src="meme.url"/>
       </div>
 
-      <div class="item" v-bind:class="{liked: meme.iLiked}" v-for="(meme, index) in myMemes">
-        <div class="img-container">
-          <img :src="meme.url"/>
-        </div>
+      <div class="description">
+        <span>{{meme.description}}</span>
+      </div>
 
-        <div class="description">
-          <span>{{meme.description}}</span>
+      <div class="actions">
+        <img :src="meme._addedBy.photos[0].value"/>
+        <div v-bind:class="{'show-remove': nav==='my'}" class="remove">
+          <i class="fa fa-times" aria-hidden="true"></i>
         </div>
-
-        <div class="actions">
-          <img :src="meme._addedBy.photos[0].value"/>
-          <div class="likes">
-            <i class="fa fa-star" aria-hidden="true"></i>
-            <span>{{meme.totalLikes}}</span>
-          </div>
+        <div class="likes">
+          <i class="fa fa-star" aria-hidden="true"></i>
+          <span>{{meme.totalLikes}}</span>
         </div>
       </div>
-    </template>
+    </div>
   </div>
 </template>
 
@@ -79,6 +60,15 @@
       }),
       myMemes: function () {
         return this.myMemeIndices.map(memeIndex => this.allMemes[memeIndex]);
+      },
+      memesToShow: function () {
+        if (this.nav === 'all') {
+          return this.allMemes;
+        } else if (this.nav === 'my') {
+          return this.myMemes;
+        } else if (this.nav === 'user') {
+          return null;
+        }
       }
     },
     methods: {
@@ -154,8 +144,27 @@
     vertical-align: top;
   }
 
+  .remove {
+    margin-left: 65px;
+    padding: 6px;
+    cursor: pointer;
+    color: darkred;
+    visibility: hidden;
+  }
+
+  .show-remove {
+    visibility: visible;
+  }
+
+  .remove:hover {
+    padding: 5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    box-shadow: 0 0 10px gray;
+  }
+
   .likes {
-    margin-left: 95px;
+    margin-left: 0;
     cursor: pointer;
     padding: 6px;
   }
