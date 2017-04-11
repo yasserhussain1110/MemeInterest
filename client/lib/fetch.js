@@ -1,7 +1,7 @@
 export const getIdentity = _this => {
   return _this.$http.get('/identity').then(res => {
     _this.$store.commit('loggedIn');
-    _this.$store.commit('gotUser', res.body);
+    _this.$store.commit('gotIdentity', res.body);
   }).catch(e => {
     _this.$store.commit('loggedOff');
     return e;
@@ -9,7 +9,7 @@ export const getIdentity = _this => {
 };
 
 export const getMyMemes = _this => {
-  _this.$store.commit('buildMyMemesIndex');
+  _this.$store.commit('buildMyMemeIndices');
 };
 
 export const getAllMemes = _this => {

@@ -9,7 +9,7 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     isLoggedIn: false,
-    user: null,
+    me: null,
     allMemes: [],
     myMemeIndices: [],
     userMemeIndices: []

@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <nav-bar v-on:changeNav=changeNav :nav="nav"></nav-bar>
-    <meme-board v-on:addMeme="addMeme" :nav="nav"></meme-board>
+    <meme-board v-on:changeNav=changeNav v-on:addMeme="addMeme" :nav="nav"></meme-board>
     <new-meme-modal v-on:hideNewMemeModal="hideNewMemeModal" :showNewMemeModal="showNewMemeModal"></new-meme-modal>
   </div>
 </template>

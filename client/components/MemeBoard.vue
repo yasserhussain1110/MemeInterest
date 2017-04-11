@@ -21,7 +21,7 @@
       </div>
 
       <div class="actions">
-        <img :src="meme._addedBy.photos[0].value"/>
+        <img v-on:click="showUserMemes(meme._addedBy._id)" :src="meme._addedBy.photos[0].value"/>
         <div v-bind:class="{'show-remove': nav==='my'}" class="remove">
           <i class="fa fa-times" aria-hidden="true"></i>
         </div>
@@ -54,6 +54,7 @@
     },
     computed: {
       ...mapState({
+        me: state => state.me,
         allMemes: state => state.allMemes,
         myMemeIndices: state => state.myMemeIndices,
         userMemeIndices: state => state.userMemeIndices
@@ -61,19 +62,26 @@
       myMemes: function () {
         return this.myMemeIndices.map(memeIndex => this.allMemes[memeIndex]);
       },
+      userMimes: function () {
+        return this.userMemeIndices.map(memeIndex => this.allMemes[memeIndex]);
+      },
       memesToShow: function () {
         if (this.nav === 'all') {
           return this.allMemes;
         } else if (this.nav === 'my') {
           return this.myMemes;
         } else if (this.nav === 'user') {
-          return null;
+          return this.userMimes;
         }
       }
     },
     methods: {
       addMeme: function () {
         this.$emit('addMeme');
+      },
+      showUserMemes: function (userId) {
+        this.$store.commit('buildUserMemeIndices', userId);
+        this.$emit('changeNav', (userId === this.me._id) ? "my" : "user");
       }
     }
   }

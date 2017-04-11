@@ -7,7 +7,7 @@ export default {
     state.isLoggedIn = false;
   },
 
-  gotUser(state, user) {
-    state.user = user;
+  gotIdentity(state, me) {
+    state.me = me;
   }
 };
