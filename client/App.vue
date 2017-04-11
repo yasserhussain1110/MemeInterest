@@ -2,6 +2,7 @@
   <div id="app">
     <nav-bar v-on:changeNav=changeNav :nav="nav"></nav-bar>
     <meme-board :nav="nav"></meme-board>
+    <new-meme-modal></new-meme-modal>
   </div>
 </template>
 
@@ -9,6 +10,7 @@
   import NavBar from './components/NavBar';
   import MemeBoard from './components/MemeBoard';
   import {getIdentity} from './lib/fetch';
+  import NewMemeModal from './components/NewMemeModal.vue';
 
   export default {
     name: "app",
@@ -19,7 +21,8 @@
     },
     components: {
       NavBar,
-      MemeBoard
+      MemeBoard,
+      NewMemeModal
     },
     created() {
       getIdentity(this);

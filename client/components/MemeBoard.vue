@@ -23,7 +23,12 @@
     <template v-else-if="nav==='my'">
       <div class="item">
         <div class="add-meme">
-          <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+          <div class="caption">
+            <span>{{addCaption}}</span>
+          </div>
+          <div class="plus">
+            <i class="fa fa-plus fa-3x" aria-hidden="true"></i>
+          </div>
         </div>
       </div>
     </template>
@@ -32,10 +37,16 @@
 
 <script>
   import Masonry from 'masonry-layout';
+  import setting from '../../setting';
 
   export default {
     name: "meme-board",
     props: ["nav"],
+    data() {
+      return {
+        addCaption: setting.memeBoard.addCaption
+      }
+    },
     mounted: function () {
       const msnry = new Masonry('.meme-board', {
         itemSelector: '.item',
@@ -45,6 +56,33 @@
 </script>
 
 <style scoped>
+
+  .add-meme {
+    text-align: center;
+    position: relative;
+    height: 100px;
+    background-color: white;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+
+  .caption {
+    top: 40px;
+    font-weight: bolder;
+    opacity: 0.8;
+  }
+
+  .plus {
+    top: 25px;
+    color: darkgreen;
+    opacity: 0.8;
+  }
+
+  .add-meme > div {
+    position: absolute;
+    width: 100%;
+  }
+
   .meme-board {
     margin: 70px auto 0 auto;
     width: 80%

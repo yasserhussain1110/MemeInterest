@@ -6,6 +6,9 @@ const settings = {
     nav: {
       all: "All Memes",
       my: "My Memes"
+    },
+    memeBoard: {
+      addCaption: "Add New Meme"
     }
   },
   pin: {
@@ -15,6 +18,9 @@ const settings = {
     nav: {
       all: "All Pics",
       my: "My Pics"
+    },
+    memeBoard: {
+      addCaption: "Add New Pic"
     }
   }
 };
