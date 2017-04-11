@@ -8,7 +8,11 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    isLoggedIn: false
+    isLoggedIn: false,
+    user: null,
+    allMemes: [],
+    myMemeIndices: [],
+    userMemeIndices: []
   },
   mutations
 });

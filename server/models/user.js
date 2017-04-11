@@ -58,7 +58,7 @@ UserSchema.statics.findOrCreate = function (userInfo) {
 
 UserSchema.methods.toJSON = function () {
   const user = this;
-  return _.pick(user, ["twitterId", "username", "displayName", "photos"]);
+  return _.pick(user, ["_id", "twitterId", "username", "displayName", "photos"]);
 };
 
 const User = mongoose.model('User', UserSchema);

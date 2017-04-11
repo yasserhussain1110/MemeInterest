@@ -44,6 +44,7 @@
         event.preventDefault();
         const {url, description} = this;
         addMeme(this, {url, description});
+        this.hideNewMemeModal();
       },
       hideNewMemeModal: function () {
         this.url = "";
@@ -100,11 +101,11 @@
   }
 
   .pic-box {
-    margin-top: 30px;
+    margin-top: 10px;
   }
 
   .pic-box > img {
-    height: 270px;
+    height: 300px;
     width: 350px;
     border-radius: 10px;
   }

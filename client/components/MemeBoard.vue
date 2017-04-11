@@ -1,20 +1,20 @@
 <template>
   <div class="meme-board">
     <template v-if="nav==='all'">
-      <div class="item liked">
+      <div class="item" v-bind:class="{liked: meme.iLiked}" v-for="(meme, index) in allMemes">
         <div class="img-container">
-          <img src="https://s-media-cache-ak0.pinimg.com/736x/0f/ca/94/0fca9410f129246c116d99b8d7791413.jpg"/>
+          <img :src="meme.url"/>
         </div>
 
         <div class="description">
-          <span>Awesome Possum Roman</span>
+          <span>{{meme.description}}</span>
         </div>
 
         <div class="actions">
-          <img src="https://pbs.twimg.com/profile_images/670879941970362368/NNEapuL3_normal.jpg"/>
+          <img :src="meme._addedBy.photos[0].value"/>
           <div class="likes">
             <i class="fa fa-star" aria-hidden="true"></i>
-            <span>25</span>
+            <span>{{meme.totalLikes}}</span>
           </div>
         </div>
       </div>
@@ -31,6 +31,24 @@
           </div>
         </div>
       </div>
+
+      <div class="item" v-bind:class="{liked: meme.iLiked}" v-for="(meme, index) in myMemes">
+        <div class="img-container">
+          <img :src="meme.url"/>
+        </div>
+
+        <div class="description">
+          <span>{{meme.description}}</span>
+        </div>
+
+        <div class="actions">
+          <img :src="meme._addedBy.photos[0].value"/>
+          <div class="likes">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <span>{{meme.totalLikes}}</span>
+          </div>
+        </div>
+      </div>
     </template>
   </div>
 </template>
@@ -38,6 +56,7 @@
 <script>
   import Masonry from 'masonry-layout';
   import setting from '../../setting';
+  import {mapState} from 'vuex';
 
   export default {
     name: "meme-board",
@@ -49,8 +68,18 @@
     },
     mounted: function () {
       const msnry = new Masonry('.meme-board', {
-        itemSelector: '.item',
+        itemSelector: '.item'
       });
+    },
+    computed: {
+      ...mapState({
+        allMemes: state => state.allMemes,
+        myMemeIndices: state => state.myMemeIndices,
+        userMemeIndices: state => state.userMemeIndices
+      }),
+      myMemes: function () {
+        return this.myMemeIndices.map(memeIndex => this.allMemes[memeIndex]);
+      }
     },
     methods: {
       addMeme: function () {
@@ -126,7 +155,7 @@
   }
 
   .likes {
-    margin-left: 85px;
+    margin-left: 95px;
     cursor: pointer;
     padding: 6px;
   }

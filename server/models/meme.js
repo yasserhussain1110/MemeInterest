@@ -19,16 +19,26 @@ const MemeSchema = new Schema({
     trim: true,
     minlength: 5
   },
-  addedBy: {
+  _addedBy: {
     type: Schema.Types.ObjectId,
-    required: true
+    required: true,
+    ref: 'User'
   },
   likes: [Schema.Types.ObjectId]
 });
 
 MemeSchema.statics.insertNew = function (memeInfo, userId) {
-  const meme = new Meme(Object.assign({}, _.pick(memeInfo, ["url", "description"]), {addedBy: userId}));
-  return meme.save();
+  const Meme = this;
+  const meme = new Meme(Object.assign({}, _.pick(memeInfo, ["url", "description"]), {_addedBy: userId}));
+  meme.save();
+  return Meme.populate(meme, {path: "_addedBy"}).then(meme => {
+    return meme.formatForUser();
+  });
+};
+
+MemeSchema.statics.findAllMemes = function () {
+  const Meme = this;
+  return Meme.find().populate('_addedBy');
 };
 
 
@@ -42,7 +52,7 @@ MemeSchema.methods.formatForUser = function (userId) {
 
 MemeSchema.methods.toJSON = function () {
   const meme = this;
-  return _.pick(meme, ['url', 'description', 'addedBy', 'likes']);
+  return _.pick(meme, ['_id', 'url', 'description', '_addedBy', 'likes']);
 };
 
 const Meme = mongoose.model('Meme', MemeSchema);
