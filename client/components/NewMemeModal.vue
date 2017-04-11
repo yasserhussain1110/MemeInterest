@@ -1,19 +1,19 @@
 <template>
-  <div v-show="true" class="modal-mask">
-    <div class="modal-container">
-      <h2> Add A New Meme</h2>
+  <div v-on:click="hideNewMemeModal" v-show="showNewMemeModal" class="modal-mask">
+    <div v-on:click.stop="" class="modal-container">
+      <h2>{{addCaption}}</h2>
       <div class="pic-box">
-        <img src="../assets/placeholder.png"/>
+        <img src="/static/placeholder.png" onError="this.src='/static/placeholder.png';"/>
       </div>
       <div class="input-box">
         <form v-on:submit="addMeme">
           <div class="input">
             <label>URL:</label>
-            <input placeholder="Enter URL" type="url" required/>
+            <input v-on:keyup="updateImageSrc" v-model="url" placeholder="Enter URL" type="url" required/>
           </div>
           <div class="input">
             <label>Description:</label>
-            <input placeholder="Enter Meme Description" type="text"/>
+            <input v-model="description" placeholder="Enter Meme Description" type="text"/>
           </div>
           <div class="input">
             <button>Add</button>
@@ -25,12 +25,33 @@
 </template>
 
 <script>
+  import {newMemeModal} from '../../setting';
+  import {addMeme} from '../lib/fetch';
+
   export default {
     name: "new-meme-modal",
+    props: ["showNewMemeModal"],
+    data() {
+      return {
+        url: "",
+        description: "",
+        imageSrc: "../assets/placeholder.png",
+        addCaption: newMemeModal.addCaption
+      }
+    },
     methods: {
       addMeme: function (event) {
         event.preventDefault();
-        console.log("meme");
+        const {url, description} = this;
+        addMeme(this, {url, description});
+      },
+      hideNewMemeModal: function () {
+        this.url = "";
+        this.description = "";
+        this.$emit("hideNewMemeModal");
+      },
+      updateImageSrc: function () {
+        document.querySelector(".pic-box img").src = this.url;
       }
     }
   }
@@ -79,12 +100,12 @@
   }
 
   .pic-box {
-    margin-top: 50px;
+    margin-top: 30px;
   }
 
   .pic-box > img {
-    height: 250px;
-    width: 250px;
+    height: 270px;
+    width: 350px;
     border-radius: 10px;
   }
 

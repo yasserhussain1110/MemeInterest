@@ -1,8 +1,8 @@
 <template>
   <div id="app">
     <nav-bar v-on:changeNav=changeNav :nav="nav"></nav-bar>
-    <meme-board :nav="nav"></meme-board>
-    <new-meme-modal></new-meme-modal>
+    <meme-board v-on:addMeme="addMeme" :nav="nav"></meme-board>
+    <new-meme-modal v-on:hideNewMemeModal="hideNewMemeModal" :showNewMemeModal="showNewMemeModal"></new-meme-modal>
   </div>
 </template>
 
@@ -16,7 +16,8 @@
     name: "app",
     data() {
       return {
-        nav: "all"  // One of 'all', 'my'
+        nav: "all",  // One of 'all', 'my'
+        showNewMemeModal: false
       }
     },
     components: {
@@ -30,6 +31,12 @@
     methods: {
       changeNav: function (newNav) {
         this.nav = newNav;
+      },
+      addMeme: function () {
+        this.showNewMemeModal = true;
+      },
+      hideNewMemeModal: function () {
+        this.showNewMemeModal = false;
       }
     }
   }

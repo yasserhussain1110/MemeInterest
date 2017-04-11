@@ -9,6 +9,9 @@ const settings = {
     },
     memeBoard: {
       addCaption: "Add New Meme"
+    },
+    newMemeModal: {
+      addCaption: "Add A New Meme"
     }
   },
   pin: {
@@ -21,6 +24,9 @@ const settings = {
     },
     memeBoard: {
       addCaption: "Add New Pic"
+    },
+    newMemeModal: {
+      addCaption: "Add A New Pic"
     }
   }
 };

@@ -22,7 +22,7 @@
 
     <template v-else-if="nav==='my'">
       <div class="item">
-        <div class="add-meme">
+        <div v-on:click="addMeme" class="add-meme">
           <div class="caption">
             <span>{{addCaption}}</span>
           </div>
@@ -51,6 +51,11 @@
       const msnry = new Masonry('.meme-board', {
         itemSelector: '.item',
       });
+    },
+    methods: {
+      addMeme: function () {
+        this.$emit('addMeme');
+      }
     }
   }
 </script>

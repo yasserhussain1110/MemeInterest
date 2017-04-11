@@ -23,17 +23,18 @@ const MemeSchema = new Schema({
     type: Schema.Types.ObjectId,
     required: true
   },
-  likes: [{
-    likedBy: {
-      type: Schema.Types.ObjectId,
-      required: true
-    }
-  }]
+  likes: [Schema.Types.ObjectId]
 });
+
+MemeSchema.statics.insertNew = function (memeInfo, userId) {
+  const meme = new Meme(Object.assign({}, _.pick(memeInfo, ["url", "description"]), {addedBy: userId}));
+  return meme.save();
+};
+
 
 MemeSchema.methods.formatForUser = function (userId) {
   const meme = this.toJSON();
-  meme.iLiked = !!meme.likes.find(like => like.likedBy === userId);
+  meme.iLiked = userId in meme.likes;
   meme.totalLikes = meme.likes.length;
   delete meme.likes;
   return meme;
