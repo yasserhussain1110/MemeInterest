@@ -1,22 +1,32 @@
 <template>
   <div class="meme-board">
-    <div class="item liked">
-      <div class="img-container">
-        <img src="https://s-media-cache-ak0.pinimg.com/736x/0f/ca/94/0fca9410f129246c116d99b8d7791413.jpg"/>
-      </div>
+    <template v-if="nav==='all'">
+      <div class="item liked">
+        <div class="img-container">
+          <img src="https://s-media-cache-ak0.pinimg.com/736x/0f/ca/94/0fca9410f129246c116d99b8d7791413.jpg"/>
+        </div>
 
-      <div class="description">
-        <span>Awesome Possum Roman</span>
-      </div>
+        <div class="description">
+          <span>Awesome Possum Roman</span>
+        </div>
 
-      <div class="actions">
-        <img src="https://pbs.twimg.com/profile_images/670879941970362368/NNEapuL3_normal.jpg"/>
-        <div class="likes">
-          <i class="fa fa-star" aria-hidden="true"></i>
-          <span>25</span>
+        <div class="actions">
+          <img src="https://pbs.twimg.com/profile_images/670879941970362368/NNEapuL3_normal.jpg"/>
+          <div class="likes">
+            <i class="fa fa-star" aria-hidden="true"></i>
+            <span>25</span>
+          </div>
         </div>
       </div>
-    </div>
+    </template>
+
+    <template v-else-if="nav==='my'">
+      <div class="item">
+        <div class="add-meme">
+          <i class="fa fa-plus fa-2x" aria-hidden="true"></i>
+        </div>
+      </div>
+    </template>
   </div>
 </template>
 
@@ -25,6 +35,7 @@
 
   export default {
     name: "meme-board",
+    props: ["nav"],
     mounted: function () {
       const msnry = new Masonry('.meme-board', {
         itemSelector: '.item',
@@ -35,7 +46,8 @@
 
 <style scoped>
   .meme-board {
-    margin-top: 70px;
+    margin: 70px auto 0 auto;
+    width: 80%
   }
 
   .item {
@@ -48,7 +60,7 @@
     width: 170px;
   }
 
-  .img-container > img{
+  .img-container > img {
     max-width: 100%;
     border-radius: 10px;
   }

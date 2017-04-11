@@ -1,7 +1,7 @@
 <template>
   <div id="app">
-    <nav-bar></nav-bar>
-    <meme-board></meme-board>
+    <nav-bar v-on:changeNav=changeNav :nav="nav"></nav-bar>
+    <meme-board :nav="nav"></meme-board>
   </div>
 </template>
 
@@ -12,12 +12,22 @@
 
   export default {
     name: "app",
+    data() {
+      return {
+        nav: "all"  // One of 'all', 'my'
+      }
+    },
     components: {
       NavBar,
       MemeBoard
     },
     created() {
       getIdentity(this);
+    },
+    methods: {
+      changeNav: function (newNav) {
+        this.nav = newNav;
+      }
     }
   }
 </script>

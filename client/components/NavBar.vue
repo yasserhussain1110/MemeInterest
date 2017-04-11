@@ -4,12 +4,13 @@
       <img src="../assets/pinterest.png"/>
     </div>
 
-    <div class="all nav-item ">
-      <a>{{navSetting.all}}</a>
+    <div class="all nav-item" v-bind:class="{selected: nav==='all'}">
+      <a v-on:click="changeNav('all')">{{navSetting.all}}</a>
     </div>
 
-    <div class="my nav-item" v-bind:class="{hidden:!isLoggedIn}">
-      <a>{{navSetting.my}}</a>
+    <div class="my nav-item"
+         v-bind:class="{hidden:!isLoggedIn, selected: nav==='my'}">
+      <a v-on:click="changeNav('my')">{{navSetting.my}}</a>
     </div>
 
     <div class="auth">
@@ -31,6 +32,7 @@
 
   export default {
     name: "nav",
+    props: ["nav"],
     data() {
       return {
         navSetting: setting.nav
@@ -40,6 +42,11 @@
       ...mapState({
         isLoggedIn: state => state.isLoggedIn
       })
+    },
+    methods: {
+      changeNav: function (newNav) {
+        this.$emit('changeNav', newNav);
+      }
     }
   }
 </script>
