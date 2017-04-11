@@ -51,7 +51,7 @@ const users = [
 
 const memes = [
   {
-    url: 'http://meme.rank1.awesome.com/meme.jpg',
+    url: 'https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcRspb2i8Xsbho7dIx_JIG88Quz2oXovkT47wcEb4-DyErvuYJlMsQ',
     description: 'Meme Ranked One1',
     addedBy: userOneId,
     likes: [
@@ -70,7 +70,7 @@ const memes = [
     ]
   },
   {
-    url: 'http://second.meme.gotcha/great.jpg',
+    url: 'https://www.google.co.in/imgres?imgurl=https%3A%2F%2Ffthmb.tqn.com%2FQt1YuEXTl3Tmu8xz_ovq5BAf2xQ%3D%2F735x0%2Fabout%2Fsuccess-56a9fd1f3df78cf772abee09.jpg&imgrefurl=https%3A%2F%2Fwww.lifewire.com%2Fwhat-is-a-meme-2483702&docid=mXRzIvpyC1kafM&tbnid=gZLGDFnF3XPCKM%3A&vet=10ahUKEwiJ7IfF55vTAhWKK48KHdKAA3cQMwhbKCEwIQ..i&w=735&h=735&bih=678&biw=1311&q=memes&ved=0ahUKEwiJ7IfF55vTAhWKK48KHdKAA3cQMwhbKCEwIQ&iact=mrc&uact=8',
     description: 'Meme Two',
     addedBy: userOneId,
     likes: [

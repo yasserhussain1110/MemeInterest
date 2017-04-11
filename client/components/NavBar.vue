@@ -8,12 +8,18 @@
       <a>{{navSetting.all}}</a>
     </div>
 
-    <div class="my nav-item">
+    <div class="my nav-item" v-bind:class="{hidden:!isLoggedIn}">
       <a>{{navSetting.my}}</a>
     </div>
 
     <div class="auth">
-      <form method="post" action="/login"><button>Login</button></form>
+      <form v-if="isLoggedIn" method="get" action="/logout">
+        <button>Logout</button>
+      </form>
+
+      <form v-else method="post" action="/login">
+        <button>Login</button>
+      </form>
     </div>
 
   </div>
@@ -21,12 +27,19 @@
 
 <script>
   import setting from '../../setting';
+  import {mapState} from 'vuex';
+
   export default {
     name: "nav",
     data() {
       return {
         navSetting: setting.nav
       }
+    },
+    computed: {
+      ...mapState({
+        isLoggedIn: state => state.isLoggedIn
+      })
     }
   }
 </script>
@@ -56,6 +69,10 @@
     padding: 20px 4px;
     margin: 0 5px;
     height: 20px;
+  }
+
+  .hidden {
+    visibility: hidden;
   }
 
   .selected {
