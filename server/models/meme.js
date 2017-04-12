@@ -41,18 +41,33 @@ MemeSchema.statics.findAllMemes = function () {
 
 MemeSchema.statics.like = function (memeId, userId) {
   const Meme = this;
-  return Meme.update({
-    _id: memeId
-  }, {
-    likes: {
-      $push: userId
-    }
-  });
+
+  return Meme.findByIdAndUpdate(memeId,
+    {
+      $push: {
+        likes: userId
+      }
+    },
+    {new: true}
+  );
+};
+
+MemeSchema.statics.unlike = function (memeId, userId) {
+  const Meme = this;
+
+  return Meme.findByIdAndUpdate(memeId,
+    {
+      $pull: {
+        likes: userId
+      }
+    },
+    {new: true}
+  );
 };
 
 MemeSchema.methods.formatForUser = function (userId) {
   const meme = this.toJSON();
-  meme.iLiked = userId in meme.likes;
+  meme.iLiked = meme.likes.indexOf(userId) > -1;
   meme.totalLikes = meme.likes.length;
   delete meme.likes;
   return meme;

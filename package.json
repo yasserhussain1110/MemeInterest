@@ -1,7 +1,7 @@
 {
-  "name": "pintereset-clone",
+  "name": "memeinterest",
   "version": "1.0.0",
-  "description": "A clone of Pinterest",
+  "description": "Add your favorite memes",
   "main": "server/server.js",
   "scripts": {
     "build": "webpack",

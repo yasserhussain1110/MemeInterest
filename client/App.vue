@@ -9,7 +9,7 @@
 <script>
   import NavBar from './components/NavBar';
   import MemeBoard from './components/MemeBoard';
-  import {getIdentity, getAllMemes, getMyMemes} from './lib/fetch';
+  import {getIdentity, getAllMemes, buildMyMemes} from './lib/fetch';
   import NewMemeModal from './components/NewMemeModal.vue';
 
   export default {
@@ -28,7 +28,7 @@
     created() {
       getAllMemes(this)
         .then(() => getIdentity(this))
-        .then(() => getMyMemes(this))
+        .then(() => buildMyMemes(this))
         .catch(e => {
           console.log("Get Identity Failed. Won't attempt to get build my Memes indices.")
         });

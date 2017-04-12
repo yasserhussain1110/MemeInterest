@@ -23,28 +23,6 @@ module.exports = app => {
       });
   });
 
-  /**
-   app.get('/meme/user/:id', (req, res) => {
-    let requesterUserId = null;
-    if (req.user) {
-      requesterUserId = req.user._id;
-    }
-
-    let targetUserId = req.params.id;
-
-    Meme.find({_addedBy: targetUserId}).then(memes => {
-      const modMemes = memes.map(meme => {
-        return meme.formatForUser(requesterUserId);
-      });
-      res.send(modMemes);
-    }).catch(e => {
-      console.log(e);
-      res.status(400).send(e);
-    });
-  });
-   */
-
-
   app.put('/meme', auth, (req, res) => {
     let user = req.user;
 
@@ -66,6 +44,17 @@ module.exports = app => {
     });
   });
 
+  app.post('/meme/:id/unlike', auth, (req, res) => {
+    let user = req.user;
+    let memeId = req.params.id;
+
+    Meme.unlike(memeId, user._id).then(() => {
+      res.status(200).send();
+    }).catch(e => {
+      res.status(400).send(e);
+    });
+  });
+
   app.delete('/meme/:id', auth, (req, res) => {
     let user = req.user;
     let memeId = req.params.id;
@@ -75,7 +64,6 @@ module.exports = app => {
       _id: memeId,
       _addedBy: user._id
     }).then(meme => {
-      console.log(meme);
       res.status(200).send();
     }).catch(e => {
       console.log(e);

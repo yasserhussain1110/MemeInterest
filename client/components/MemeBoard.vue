@@ -2,16 +2,13 @@
   <div class="meme-board">
     <div class="item" v-if="nav==='my'">
       <div v-on:click="addMeme" class="add-meme">
-        <div class="caption">
-          <span>{{addCaption}}</span>
-        </div>
         <div class="plus">
           <i class="fa fa-plus fa-3x" aria-hidden="true"></i>
         </div>
       </div>
     </div>
 
-    <div class="item" v-bind:class="{liked: meme.iLiked}" v-for="(meme, index) in memesToShow">
+    <div class="item" v-for="(meme, index) in memesToShow">
       <div class="img-container">
         <img :src="meme.url"/>
       </div>
@@ -22,11 +19,14 @@
 
       <div class="actions">
         <img v-on:click="showUserMemes(meme._addedBy._id)" :src="meme._addedBy.photos[0].value"/>
-        <div v-bind:class="{'show-remove': nav==='my'}" class="remove">
+        <div v-on:click="removeMeme(index)" v-bind:class="{'show-remove': nav==='my'}" class="remove">
           <i class="fa fa-times" aria-hidden="true"></i>
         </div>
         <div class="likes">
-          <i class="fa fa-star" aria-hidden="true"></i>
+          <i
+            v-on:click="likeOrUnlikeMeme(index)"
+            v-bind:class="{liked: meme.iLiked}"
+            class="fa fa-star" aria-hidden="true"></i>
           <span>{{meme.totalLikes}}</span>
         </div>
       </div>
@@ -38,6 +38,7 @@
   import Masonry from 'masonry-layout';
   import setting from '../../setting';
   import {mapState} from 'vuex';
+  import {unlikeMeme, likeMeme, removeMeme} from '../lib/fetch';
 
   export default {
     name: "meme-board",
@@ -82,6 +83,32 @@
       showUserMemes: function (userId) {
         this.$store.commit('buildUserMemeIndices', userId);
         this.$emit('changeNav', (userId === this.me._id) ? "my" : "user");
+      },
+      likeOrUnlikeMeme: function (memeToShowIndex) {
+        let memeIndex;
+        if (this.nav === 'all') {
+          memeIndex = memeToShowIndex;
+        } else if (this.nav === 'my') {
+          memeIndex = this.myMemeIndices[memeToShowIndex];
+        } else if (this.nav === 'user') {
+          memeIndex = this.userMemeIndices[memeToShowIndex];
+        }
+
+        let meme = this.allMemes[memeIndex];
+        if (meme.iLiked) {
+          unlikeMeme(this, meme, memeIndex);
+        } else {
+          likeMeme(this, meme, memeIndex);
+        }
+      },
+      removeMeme: function (memeToShowIndex) {
+        if (memeToShowIndex >= this.myMemeIndices.length) {
+          return console.log("Some weired error. Please check.");
+        }
+
+        let memeIndex = this.myMemeIndices[memeToShowIndex];
+        let meme = this.allMemes[memeIndex];
+        removeMeme(this, meme, memeIndex);
       }
     }
   }
@@ -96,12 +123,6 @@
     background-color: white;
     border-radius: 5px;
     cursor: pointer;
-  }
-
-  .caption {
-    top: 40px;
-    font-weight: bolder;
-    opacity: 0.8;
   }
 
   .plus {
@@ -153,7 +174,7 @@
   }
 
   .remove {
-    margin-left: 65px;
+    margin-left: 60px;
     padding: 6px;
     cursor: pointer;
     color: darkred;
@@ -171,24 +192,17 @@
     box-shadow: 0 0 10px gray;
   }
 
+  .remove:active {
+    box-shadow: none;
+  }
+
   .likes {
     margin-left: 0;
     cursor: pointer;
     padding: 6px;
   }
 
-  .likes:hover {
-    padding: 5px;
-    border: 1px solid gray;
-    border-radius: 5px;
-    box-shadow: 0 0 10px gray;
-  }
-
-  .likes:active {
-    box-shadow: none;
-  }
-
-  .liked i {
+  .liked {
     color: blue;
   }
 

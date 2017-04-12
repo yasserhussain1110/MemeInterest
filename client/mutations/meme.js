@@ -18,5 +18,36 @@ export default {
   buildUserMemeIndices(state, userId) {
     state.userMemeIndices =
       _.range(state.allMemes.length).filter(mimeIndex => state.allMemes[mimeIndex]._addedBy._id === userId);
+  },
+
+  likedMeme(state, memeIndex) {
+    state.allMemes = [
+      ...state.allMemes.slice(0, memeIndex),
+      Object.assign({}, state.allMemes[memeIndex],
+        {
+          iLiked: true,
+          totalLikes: state.allMemes[memeIndex].totalLikes + 1
+        }),
+      ...state.allMemes.slice(memeIndex + 1)
+    ];
+  },
+
+  unlikedMeme(state, memeIndex) {
+    state.allMemes = [
+      ...state.allMemes.slice(0, memeIndex),
+      Object.assign({}, state.allMemes[memeIndex],
+        {
+          iLiked: false,
+          totalLikes: state.allMemes[memeIndex].totalLikes - 1
+        }),
+      ...state.allMemes.slice(memeIndex + 1)
+    ];
+  },
+
+  removedMeme(state, memeIndex) {
+    state.allMemes = [
+      ...state.allMemes.slice(0, memeIndex),
+      ...state.allMemes.slice(memeIndex + 1)
+    ];
   }
 };

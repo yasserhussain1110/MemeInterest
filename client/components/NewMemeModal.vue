@@ -3,7 +3,7 @@
     <div v-on:click.stop="" class="modal-container">
       <h2>{{addCaption}}</h2>
       <div class="pic-box">
-        <img src="/static/placeholder.png" onError="this.src='/static/placeholder.png';"/>
+        <img :src="imageSrc" v-on:error="resetImageSrc"/>
       </div>
       <div class="input-box">
         <form v-on:submit="addMeme">
@@ -28,6 +28,8 @@
   import {newMemeModal} from '../../setting';
   import {addMeme} from '../lib/fetch';
 
+  const placeholderImgSrc = "/static/placeholder.png";
+
   export default {
     name: "new-meme-modal",
     props: ["showNewMemeModal"],
@@ -35,15 +37,15 @@
       return {
         url: "",
         description: "",
-        imageSrc: "../assets/placeholder.png",
+        imageSrc: placeholderImgSrc,
         addCaption: newMemeModal.addCaption
       }
     },
     methods: {
       addMeme: function (event) {
         event.preventDefault();
-        const {url, description} = this;
-        addMeme(this, {url, description});
+        const {imageSrc, description} = this;
+        addMeme(this, {url: imageSrc, description});
         this.hideNewMemeModal();
       },
       hideNewMemeModal: function () {
@@ -52,7 +54,10 @@
         this.$emit("hideNewMemeModal");
       },
       updateImageSrc: function () {
-        document.querySelector(".pic-box img").src = this.url;
+        this.imageSrc = this.url;
+      },
+      resetImageSrc: function () {
+        this.imageSrc = placeholderImgSrc;
       }
     }
   }
