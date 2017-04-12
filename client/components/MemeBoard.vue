@@ -1,5 +1,5 @@
 <template>
-  <div class="meme-board">
+  <div class="meme-board clearfix">
     <div class="item" v-if="nav==='my'">
       <div v-on:click="addMeme" class="add-meme">
         <div class="plus">
@@ -125,6 +125,14 @@
     cursor: pointer;
   }
 
+  .clearfix:after {
+    content: " ";
+    visibility: hidden;
+    font-size: 0;
+    display: block;
+    clear: both;
+  }
+
   .plus {
     top: 25px;
     color: darkgreen;
@@ -138,7 +146,7 @@
 
   .meme-board {
     margin: 70px auto 0 auto;
-    width: 80%
+    width: 80%;
   }
 
   .item {
