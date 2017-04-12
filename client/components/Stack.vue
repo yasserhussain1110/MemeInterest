@@ -28,6 +28,8 @@
       <a title="Click to see source code!" target="_blank" href="https://github.com/yasserhussain1110/MemeInterest">
         <img src="../assets/github.png"/></a>
     </div>
+
+    <div class="twitter-link"><a href="https://twitter.com/yasserhussain11">@yasserhussain1110</a></div>
   </footer>
 </template>
 
@@ -40,56 +42,74 @@
 <style scoped>
   footer {
     text-align: center;
-    margin-top: 150px;
+    margin: 150px auto 0 auto;
     padding: 0;
     background-color: white;
     border-radius: 20px;
+    width: 40%;
   }
+
   img {
     border-radius: 10px;
   }
+
   div {
     display: inline-block;
     padding: 5px;
   }
+
   .node img {
-    width: 140px;
-    height: 40px;
-    margin-bottom: 20px;
+    width: 60px;
+    height: 45px;
   }
+
   .express img {
-    width: 70px;
-    height: 70px;
+    width: 45px;
+    height: 45px;
     background-color: white;
     border-radius: 5px;
   }
+
   .mongodb img {
-    width: 110px;
-    height: 75px;
+    width: 50px;
+    height: 50px;
     margin-top: 10px;
     vertical-align: bottom;
   }
+
   .vue img {
-    width: 70px;
-    height: 70px;
+    width: 40px;
+    height: 40px;
   }
+
   .vuex img {
-    width: 90px;
-    height: 50px;
-    margin-bottom: 10px;
+    width: 70px;
+    height: 40px;
   }
+
   .socket img {
-    width: 65px;
-    height: 65px;
+    width: 40px;
+    height: 40px;
     margin-bottom: 3px;
   }
-  .mocha img {
-    width: 70px;
-    height: 70px;
-  }
+
   .github img {
-    width: 60px;
-    height: 60px;
-    margin-bottom: 7px;
+    width: 40px;
+    height: 40px;
+    margin-bottom: 5px;
+  }
+
+  .twitter-link {
+    display: block;
+    margin-top: 5px;
+  }
+
+  a {
+    text-decoration: none;
+    color: black;
+  }
+
+  a:hover {
+    text-decoration: underline;
   }
 </style>
