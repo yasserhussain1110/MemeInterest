@@ -1,5 +1,5 @@
 <template>
-  <div v-masonry transition-duration="0.3s" item-selector=".item" class="meme-board clearfix">
+  <div v-masonry transition-duration="0.3s" item-selector=".item" class="meme-board">
     <div v-masonry-tile class="item" v-if="nav==='my'">
       <div v-on:click="addMeme" class="add-meme">
         <div class="plus">
@@ -118,12 +118,6 @@
     background-color: white;
     border-radius: 5px;
     cursor: pointer;
-  }
-
-  .clearfix:after {
-    content: '';
-    display: block;
-    clear: both;
   }
 
   .plus {
