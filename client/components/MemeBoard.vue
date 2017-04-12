@@ -1,6 +1,6 @@
 <template>
-  <div class="meme-board clearfix">
-    <div class="item" v-if="nav==='my'">
+  <div v-masonry transition-duration="0.3s" item-selector=".item" class="meme-board clearfix">
+    <div v-masonry-tile class="item" v-if="nav==='my'">
       <div v-on:click="addMeme" class="add-meme">
         <div class="plus">
           <i class="fa fa-plus fa-3x" aria-hidden="true"></i>
@@ -8,7 +8,7 @@
       </div>
     </div>
 
-    <div class="item" v-for="(meme, index) in memesToShow">
+    <div v-masonry-tile class="item" v-for="(meme, index) in memesToShow">
       <div class="img-container">
         <img :src="meme.url"/>
       </div>
@@ -47,11 +47,6 @@
       return {
         addCaption: setting.memeBoard.addCaption
       }
-    },
-    mounted: function () {
-      const msnry = new Masonry('.meme-board', {
-        itemSelector: '.item'
-      });
     },
     computed: {
       ...mapState({

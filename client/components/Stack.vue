@@ -38,22 +38,9 @@
 </script>
 
 <style scoped>
-  /* For firefox */
-  @-moz-document url-prefix() {
-    footer {
-      margin-top: 400px;
-    }
-  }
-  /* For chrome */
-  @media screen and (-webkit-min-device-pixel-ratio: 0)
-  and (min-resolution: .001dpcm) {
-    footer {
-      margin-top: 425px;
-    }
-  }
   footer {
     text-align: center;
-
+    margin-top: 150px;
     padding: 0;
     background-color: white;
     border-radius: 20px;

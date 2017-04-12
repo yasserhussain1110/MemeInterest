@@ -53,7 +53,7 @@
 
 <style scoped>
   .nav {
-    position: initial;
+    position: fixed;
     top: 0;
     left: 0;
     background-color: white;

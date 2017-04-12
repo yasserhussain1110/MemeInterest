@@ -3,8 +3,10 @@ import App from './App';
 import VueResource from 'vue-resource';
 import Vuex from 'vuex';
 import mutations from './mutations';
+import VueMasonryPlugin from 'vue-masonry';
 
 Vue.use(Vuex);
+Vue.use(VueMasonryPlugin);
 
 const store = new Vuex.Store({
   state: {
