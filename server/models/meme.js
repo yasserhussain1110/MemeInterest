@@ -31,9 +31,7 @@ MemeSchema.statics.insertNew = function (memeInfo, userId) {
   const Meme = this;
   const meme = new Meme(Object.assign({}, _.pick(memeInfo, ["url", "description"]), {_addedBy: userId}));
   meme.save();
-  return Meme.populate(meme, {path: "_addedBy"}).then(meme => {
-    return meme.formatForUser();
-  });
+  return Meme.populate(meme, {path: "_addedBy"}).then(meme => meme.formatForUser());
 };
 
 MemeSchema.statics.findAllMemes = function () {
@@ -41,6 +39,16 @@ MemeSchema.statics.findAllMemes = function () {
   return Meme.find().populate('_addedBy');
 };
 
+MemeSchema.statics.like = function (memeId, userId) {
+  const Meme = this;
+  return Meme.update({
+    _id: memeId
+  }, {
+    likes: {
+      $push: userId
+    }
+  });
+};
 
 MemeSchema.methods.formatForUser = function (userId) {
   const meme = this.toJSON();

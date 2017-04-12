@@ -23,8 +23,8 @@ module.exports = app => {
       });
   });
 
-  /*
-  app.get('/meme/user/:id', (req, res) => {
+  /**
+   app.get('/meme/user/:id', (req, res) => {
     let requesterUserId = null;
     if (req.user) {
       requesterUserId = req.user._id;
@@ -42,13 +42,25 @@ module.exports = app => {
       res.status(400).send(e);
     });
   });
-  */
+   */
+
 
   app.put('/meme', auth, (req, res) => {
     let user = req.user;
 
     Meme.insertNew(req.body, user._id).then(meme => {
-      res.send(meme);
+      res.status(201).send(meme);
+    }).catch(e => {
+      res.status(400).send(e);
+    });
+  });
+
+  app.post('/meme/:id/like', auth, (req, res) => {
+    let user = req.user;
+    let memeId = req.params.id;
+
+    Meme.like(memeId, user._id).then(() => {
+      res.status(200).send();
     }).catch(e => {
       res.status(400).send(e);
     });
