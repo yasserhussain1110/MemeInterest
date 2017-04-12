@@ -3,16 +3,18 @@
     <nav-bar v-on:changeNav=changeNav :nav="nav"></nav-bar>
     <meme-board v-on:changeNav=changeNav v-on:addMeme="addMeme" :nav="nav"></meme-board>
     <new-meme-modal v-on:hideNewMemeModal="hideNewMemeModal" :showNewMemeModal="showNewMemeModal"></new-meme-modal>
+    <stack></stack>
   </div>
 </template>
 
 <script>
   import NavBar from './components/NavBar';
   import MemeBoard from './components/MemeBoard';
-  import {getIdentity, getAllMemes, buildMyMemes} from './lib/fetch';
   import NewMemeModal from './components/NewMemeModal.vue';
-  import io from 'socket.io-client';
+  import Stack from './components/Stack.vue';
+  import {getIdentity, getAllMemes, buildMyMemes} from './lib/fetch';
   import {mapState} from 'vuex';
+  import io from 'socket.io-client';
 
   const amITheOriginator = (me, payload) => {
     return me && me._id === payload._originator
@@ -30,7 +32,8 @@
     components: {
       NavBar,
       MemeBoard,
-      NewMemeModal
+      NewMemeModal,
+      Stack
     },
     computed: {
       ...mapState({

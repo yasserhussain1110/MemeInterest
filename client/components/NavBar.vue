@@ -53,13 +53,14 @@
 
 <style scoped>
   .nav {
-    position: fixed;
+    position: initial;
     top: 0;
     left: 0;
     background-color: white;
     color: #777;
     box-shadow: 0 1px 1px black;
     width: 100%;
+    z-index: 1;
   }
 
   img {
@@ -76,6 +77,13 @@
     padding: 20px 4px;
     margin: 0 5px;
     height: 20px;
+  }
+
+  @-moz-document url-prefix() {
+    .nav-item {
+      font-size: 12px;
+      font-weight: bolder;
+    }
   }
 
   .hidden {

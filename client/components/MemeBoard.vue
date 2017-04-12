@@ -82,7 +82,7 @@
       },
       showUserMemes: function (userId) {
         this.$store.commit('buildUserMemeIndices', userId);
-        this.$emit('changeNav', (userId === this.me._id) ? "my" : "user");
+        this.$emit('changeNav', (this.me && userId === this.me._id) ? "my" : "user");
       },
       likeOrUnlikeMeme: function (memeToShowIndex) {
         let memeIndex;
@@ -126,9 +126,7 @@
   }
 
   .clearfix:after {
-    content: " ";
-    visibility: hidden;
-    font-size: 0;
+    content: '';
     display: block;
     clear: both;
   }
