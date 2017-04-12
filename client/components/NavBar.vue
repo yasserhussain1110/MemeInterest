@@ -121,7 +121,7 @@
     border: 1px solid #ccc;
   }
 
-  button:focus {
+  button:active {
     box-shadow: inset 0 0 6px gray;
   }
 
