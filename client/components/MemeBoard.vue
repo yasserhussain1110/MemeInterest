@@ -25,7 +25,7 @@
         <div class="likes">
           <i
             v-on:click="likeOrUnlikeMeme(index)"
-            v-bind:class="{liked: meme.iLiked}"
+            v-bind:class="{liked: meme.iLiked, banned: !me}"
             class="fa fa-star" aria-hidden="true"></i>
           <span>{{meme.totalLikes}}</span>
         </div>
@@ -110,6 +110,9 @@
 </script>
 
 <style scoped>
+  .banned:hover {
+    cursor: not-allowed;
+  }
 
   .add-meme {
     text-align: center;
@@ -161,6 +164,7 @@
     width: 30px;
     height: 30px;
     border-radius: 5px;
+    cursor: pointer;
   }
 
   .actions > div {
@@ -193,8 +197,11 @@
 
   .likes {
     margin-left: 0;
-    cursor: pointer;
     padding: 6px;
+  }
+
+  .likes > i {
+    cursor: pointer;
   }
 
   .liked {
