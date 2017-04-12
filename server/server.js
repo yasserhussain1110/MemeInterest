@@ -37,7 +37,12 @@ else if (process.env.NODE_ENV === "production") {
   app.use(express.static('./dist'));
 }
 
-app.listen(port, () => {
+const http = require('http').Server(app);
+const io = require('socket.io')(http);
+
+global.io = io;
+
+http.listen(port, () => {
   console.log(`Server started on ${port}`);
 });
 

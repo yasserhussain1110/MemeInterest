@@ -11,13 +11,20 @@
   import MemeBoard from './components/MemeBoard';
   import {getIdentity, getAllMemes, buildMyMemes} from './lib/fetch';
   import NewMemeModal from './components/NewMemeModal.vue';
+  import io from 'socket.io-client';
+  import {mapState} from 'vuex';
+
+  const amITheOriginator = (me, payload) => {
+    return me && me._id === payload._originator
+  };
 
   export default {
     name: "app",
     data() {
       return {
         nav: "all",  // One of 'all', 'my', 'user'
-        showNewMemeModal: false
+        showNewMemeModal: false,
+        socket: null
       }
     },
     components: {
@@ -25,7 +32,14 @@
       MemeBoard,
       NewMemeModal
     },
+    computed: {
+      ...mapState({
+        me: state => state.me
+      })
+    },
     created() {
+      this.readySocketIO();
+
       getAllMemes(this)
         .then(() => getIdentity(this))
         .then(() => buildMyMemes(this))
@@ -42,6 +56,38 @@
       },
       hideNewMemeModal: function () {
         this.showNewMemeModal = false;
+      },
+      readySocketIO: function () {
+        this.socket = io.connect();
+        this.attachSocketIOListeners();
+      },
+      attachSocketIOListeners: function () {
+        this.socket.on('memeAdded', (payload) => {
+          if (!amITheOriginator(this.me, payload)) {
+            this.$store.commit('addedMeme', payload.meme);
+          }
+        });
+
+        this.socket.on('memeRemoved', (payload) => {
+          if (!amITheOriginator(this.me, payload)) {
+            this.$store.commit('removedMemeById', payload.memeId);
+            if (this.me) {
+              this.$store.commit('buildMyMemeIndices');
+            }
+          }
+        });
+
+        this.socket.on('memeLiked', (payload) => {
+          if (!amITheOriginator(this.me, payload)) {
+            this.$store.commit('likedMemeById', payload.memeId);
+          }
+        });
+
+        this.socket.on('memeUnliked', (payload) => {
+          if (!amITheOriginator(this.me, payload)) {
+            this.$store.commit('unlikedMemeById', payload.memeId);
+          }
+        });
       }
     }
   }

@@ -28,6 +28,10 @@ module.exports = app => {
 
     Meme.insertNew(req.body, user._id).then(meme => {
       res.status(201).send(meme);
+      io.emit('memeAdded', {
+        _originator: user._id,
+        meme
+      });
     }).catch(e => {
       res.status(400).send(e);
     });
@@ -39,6 +43,10 @@ module.exports = app => {
 
     Meme.like(memeId, user._id).then(() => {
       res.status(200).send();
+      io.emit('memeLiked', {
+        _originator: user._id,
+        memeId
+      });
     }).catch(e => {
       res.status(400).send(e);
     });
@@ -50,6 +58,10 @@ module.exports = app => {
 
     Meme.unlike(memeId, user._id).then(() => {
       res.status(200).send();
+      io.emit('memeUnliked', {
+        _originator: user._id,
+        memeId
+      });
     }).catch(e => {
       res.status(400).send(e);
     });
@@ -65,6 +77,10 @@ module.exports = app => {
       _addedBy: user._id
     }).then(meme => {
       res.status(200).send();
+      io.emit('memeRemoved', {
+        _originator: user._id,
+        memeId
+      });
     }).catch(e => {
       console.log(e);
       res.status(400).send(e);
