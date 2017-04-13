@@ -6,7 +6,9 @@
   "scripts": {
     "build": "webpack",
     "fill": "node server/filler/fill.js",
-    "postinstall": "npm run build",
+    "postinstall": "per-env",
+    "postinstall:production": "npm run build",
+    "postinstall:development": "echo 'skip postinstall'",
     "start": "per-env",
     "start:production": "node server/server",
     "start:development": "nodemon server/server"
