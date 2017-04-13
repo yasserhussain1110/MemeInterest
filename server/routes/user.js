@@ -6,7 +6,7 @@ const auth = require('../middleware/auth');
 passport.use(new Strategy({
     consumerKey: process.env.TWITTER_CONSUMER_KEY,
     consumerSecret: process.env.TWITTER_CONSUMER_SECRET,
-    callbackURL: `http://localhost:${process.env.PORT}/login/twitter/return`
+    callbackURL: process.env.CALLBACK_URL
   },
   function (token, tokenSecret, profile, cb) {
     User.findOrCreate(profile)
