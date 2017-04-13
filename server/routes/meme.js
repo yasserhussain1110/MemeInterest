@@ -38,6 +38,29 @@ module.exports = app => {
     });
   };
 
+  const ensureUrlIsReachableAndImage = (url) => {
+    return new Promise((resolve, reject) => {
+      hh.get(url, response => {
+        if (response.statusCode < 200 || response.statusCode > 299) {
+          return reject("Status Code is not 200");
+        }
+
+        response.once('data', chunk => {
+          response.destroy();
+          const urlImageType = imageType(chunk);
+          console.log(urlImageType);
+          if (urlImageType) {
+            resolve("Awesome");
+          } else {
+            reject("Not an image url");
+          }
+        });
+      }).on('error', e => {
+        reject("url unreachable");
+      });
+    });
+  };
+
   app.put('/meme', auth, (req, res) => {
     let user = req.user;
 
@@ -47,19 +70,10 @@ module.exports = app => {
       return res.send(400);
     }
 
-    hh.get(memeInfo.url, imageTypeRes => {
-      imageTypeRes.once('data', chunk => {
-        imageTypeRes.destroy();
-        const urlImageType = imageType(chunk);
-        console.log(urlImageType);
-        if (!urlImageType) {
-          memeInfo.url = getFullPlaceholderImageUrl(req);
-        }
-        insertNewMemeAndSendResponse(memeInfo, user._id, res);
-      });
-    }).on('error', e => {
-      console.log("url unreachable");
+    ensureUrlIsReachableAndImage(memeInfo.url).catch(e => {
+      console.log(e);
       memeInfo.url = getFullPlaceholderImageUrl(req);
+    }).then(() => {
       insertNewMemeAndSendResponse(memeInfo, user._id, res);
     });
   });
