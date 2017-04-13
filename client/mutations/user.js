@@ -5,6 +5,7 @@ export default {
 
   loggedOff(state) {
     state.isLoggedIn = false;
+    state.me = null;
   },
 
   gotIdentity(state, me) {

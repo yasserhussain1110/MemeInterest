@@ -8,6 +8,9 @@ const getFullPlaceholderImageUrl = (req) => {
   return fullUrl;
 };
 
+const isAllowedUrl = url => url && (url.startsWith("http") || url.startsWith("https"));
+
 module.exports = {
+  isAllowedUrl,
   getFullPlaceholderImageUrl
 };

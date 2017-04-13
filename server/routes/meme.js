@@ -1,6 +1,6 @@
 const Meme = require('../models/meme');
 const auth = require('../middleware/auth');
-const {getFullPlaceholderImageUrl} = require('../helper/lib');
+const {getFullPlaceholderImageUrl, isAllowedUrl} = require('../helper/lib');
 const imageType = require('image-type');
 const hh = require('http-https');
 
@@ -66,8 +66,9 @@ module.exports = app => {
 
     const memeInfo = req.body;
 
-    if (!memeInfo.url) {
-      return res.send(400);
+    /* Deal with common error cases quickly */
+    if (!isAllowedUrl(memeInfo.url)) {
+      return res.status(400).send();
     }
 
     ensureUrlIsReachableAndImage(memeInfo.url).catch(e => {
