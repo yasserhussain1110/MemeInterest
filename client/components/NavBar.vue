@@ -15,11 +15,13 @@
 
     <div class="auth">
       <form v-if="isLoggedIn" method="get" action="/logout">
-        <button>Logout</button>
+        <button class="big-button"><i class="fa fa-twitter"></i>Logout</button>
+        <button class="small-button"><i class="fa fa-sign-out"></i></button>
       </form>
 
       <form v-else method="post" action="/login">
-        <button>Login</button>
+        <button class="big-button"><i class="fa fa-twitter"></i>Login</button>
+        <button class="small-button"><i class="fa fa-twitter"></i></button>
       </form>
     </div>
 
@@ -79,13 +81,6 @@
     height: 20px;
   }
 
-  @-moz-document url-prefix() {
-    .nav-item {
-      font-size: 12px;
-      font-weight: bolder;
-    }
-  }
-
   .hidden {
     visibility: hidden;
   }
@@ -101,11 +96,15 @@
   }
 
   button {
-    padding: 10px 20px;
+    padding: 10px 10px;
     background-color: #F8F8F8;
     border: 1px solid #E6E6E6;
     border-radius: 5px;
     font-size: 1.01em;
+  }
+
+  button > i {
+    margin-right: 5px;
   }
 
   .auth {
@@ -125,75 +124,123 @@
     box-shadow: inset 0 0 6px gray;
   }
 
-  @media screen and (max-width: 1224px) {
+  @-moz-document url-prefix() {
+    .nav-item {
+      font-size: 11px;
+      font-weight: bolder;
+    }
+  }
+
+  .small-button {
+    display: none;
+  }
+
+  @media screen and (max-width: 1260px) {
     .auth {
       margin-left: 65%;
     }
   }
 
-  @media screen and (max-width: 1048px) {
+  @media screen and (max-width: 1082px) {
     .auth {
       margin-left: 60%;
     }
   }
 
-  @media screen and (max-width: 917px) {
+  @media screen and (max-width: 949px) {
     .auth {
       margin-left: 56%;
     }
   }
 
-  @media screen and (max-width: 834px) {
+  @media screen and (max-width: 864px) {
     .auth {
       margin-left: 52%;
     }
   }
 
-  @media screen and (max-width: 764px) {
+  @media screen and (max-width: 793px) {
     .auth {
       margin-left: 48%;
     }
   }
 
-  @media screen and (max-width: 705px) {
+  @media screen and (max-width: 733px) {
     .auth {
       margin-left: 45%;
     }
   }
 
-  @media screen and (max-width: 667px) {
+  @media screen and (max-width: 694px) {
     .auth {
       margin-left: 40%;
     }
   }
 
-  @media screen and (max-width: 611px) {
+  @media screen and (max-width: 637px) {
     .auth {
       margin-left: 35%;
     }
   }
 
-  @media screen and (max-width: 611px) {
+  @media screen and (max-width: 589px) {
     .auth {
       margin-left: 30%;
     }
   }
 
-  @media screen and (max-width: 524px) {
+  @media screen and (max-width: 548px) {
     .auth {
       margin-left: 25%;
     }
   }
 
-  @media screen and (max-width: 489px) {
+  @media screen and (max-width: 513px) {
     .auth {
       margin-left: 20%;
     }
   }
 
-  @media screen and (max-width: 458px) {
+  @media screen and (max-width: 482px) {
     .auth {
       margin-left: 15%;
+    }
+  }
+
+  @media screen and (max-width: 454px) {
+    .auth {
+      margin-left: 20%;
+    }
+
+    .small-button {
+      display: initial;
+      padding: 5px 10px;
+    }
+
+    .small-button > i {
+      margin: 0;
+    }
+
+    .big-button {
+      display: none;
+    }
+  }
+
+  @media screen and (max-width: 414px) {
+    .auth {
+      margin-left: 15%;
+    }
+  }
+
+  @media screen and (max-width: 391px) {
+    .auth {
+      margin-left: 10%;
+    }
+  }
+
+  @media screen and (max-width: 371px) {
+    .auth {
+      margin-left: 6%;
     }
   }
 </style>
