@@ -44,8 +44,8 @@
     methods: {
       addMeme: function (event) {
         event.preventDefault();
-        const {imageSrc, description} = this;
-        addMeme(this, {url: imageSrc, description});
+        const {url, description} = this;
+        addMeme(this, {url , description});
         this.hideNewMemeModal();
       },
       hideNewMemeModal: function () {
@@ -138,8 +138,6 @@
     z-index: 2;
     animation: dropdown 0.5s;
   }
-
-
 
   .modal-container {
     border-radius: 10px;

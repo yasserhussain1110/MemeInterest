@@ -1,7 +1,8 @@
 const Meme = require('../models/meme');
 const auth = require('../middleware/auth');
-const isImageUrl = require('is-image-url');
-const {constructFullUrlFromRequest} = require('../helper/lib');
+const {getFullPlaceholderImageUrl} = require('../helper/lib');
+const imageType = require('image-type');
+const hh = require('http-https');
 
 module.exports = app => {
   app.get('/meme', (req, res) => {
@@ -25,23 +26,41 @@ module.exports = app => {
       });
   });
 
+  const insertNewMemeAndSendResponse = (memeInfo, userId, res) => {
+    Meme.insertNew(memeInfo, userId).then(meme => {
+      res.status(201).send(meme);
+      io.emit('memeAdded', {
+        _originator: userId,
+        meme
+      });
+    }).catch(e => {
+      res.status(400).send(e);
+    });
+  };
+
   app.put('/meme', auth, (req, res) => {
     let user = req.user;
 
     const memeInfo = req.body;
 
-    if (memeInfo.url && !isImageUrl(memeInfo.url)) {
-      memeInfo.url = constructFullUrlFromRequest(req);
+    if (!memeInfo.url) {
+      return res.send(400);
     }
 
-    Meme.insertNew(req.body, user._id).then(meme => {
-      res.status(201).send(meme);
-      io.emit('memeAdded', {
-        _originator: user._id,
-        meme
+    hh.get(memeInfo.url, imageTypeRes => {
+      imageTypeRes.once('data', chunk => {
+        imageTypeRes.destroy();
+        const urlImageType = imageType(chunk);
+        console.log(urlImageType);
+        if (!urlImageType) {
+          memeInfo.url = getFullPlaceholderImageUrl(req);
+        }
+        insertNewMemeAndSendResponse(memeInfo, user._id, res);
       });
-    }).catch(e => {
-      res.status(400).send(e);
+    }).on('error', e => {
+      console.log("url unreachable");
+      memeInfo.url = getFullPlaceholderImageUrl(req);
+      insertNewMemeAndSendResponse(memeInfo, user._id, res);
     });
   });
 

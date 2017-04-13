@@ -1,6 +1,6 @@
 const placeholderImgSrc = "/static/placeholder.png";
 
-const constructFullUrlFromRequest = (req) => {
+const getFullPlaceholderImageUrl = (req) => {
   const proto = req.headers['x-forwarded-proto'] ||
   req.connection.encrypted ? "https" : "http";
 
@@ -9,5 +9,5 @@ const constructFullUrlFromRequest = (req) => {
 };
 
 module.exports = {
-  constructFullUrlFromRequest
+  getFullPlaceholderImageUrl
 };
