@@ -51,6 +51,7 @@
       hideNewMemeModal: function () {
         this.url = "";
         this.description = "";
+        this.imageSrc = placeholderImgSrc;
         this.$emit("hideNewMemeModal");
       },
       updateImageSrc: function () {
