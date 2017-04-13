@@ -156,8 +156,16 @@
 
   .description {
     max-width: 100%;
+    padding: 5px 0;
     margin: 5px;
     text-align: center;
+    border: 1px solid gray;
+    box-shadow: 0 0 5px gray;
+    border-radius: 5px;
+  }
+
+  .actions {
+    margin-top: 10px;
   }
 
   .actions > img {
