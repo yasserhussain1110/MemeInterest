@@ -23,12 +23,12 @@ const settings = {
       my: "My Pics"
     },
     memeBoard: {
-      addCaption: "Add New Pic"
+      addCaption: "Add New Pin"
     },
     newMemeModal: {
-      addCaption: "Add A New Pic"
+      addCaption: "Add A New Pin"
     }
   }
 };
 
-module.exports = settings[process.env.FRIENDLY ? "meme" : "pin"];
+module.exports = settings[process.env.SETTING];
