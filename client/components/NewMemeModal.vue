@@ -116,14 +116,30 @@
     border-radius: 10px;
   }
 
+  @keyframes dropdown {
+    from {
+      top: -100px;
+      height: 200%;
+    }
+    to {
+      top: 0;
+      height: 120%;
+    }
+  }
+
   .modal-mask {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100%;
+    height: 120%;
     width: 100%;
     background-color: rgba(128, 128, 128, 0.7);
+    transition: display 0.3s ease;
+    z-index: 2;
+    animation: dropdown 0.5s;
   }
+
+
 
   .modal-container {
     border-radius: 10px;
@@ -134,6 +150,7 @@
     background-color: white;
     margin: 50px auto;
     padding: 10px;
+    transition: display 0.3s ease;
   }
 
 </style>
