@@ -110,6 +110,13 @@
 </script>
 
 <style scoped>
+
+  @-moz-document url-prefix() {
+    .meme-board {
+      font-size: 12px;
+    }
+  }
+
   .banned:hover {
     cursor: not-allowed;
   }
@@ -156,12 +163,13 @@
 
   .description {
     max-width: 100%;
-    padding: 5px 0;
+    padding: 5px;
     margin: 5px;
     text-align: center;
     border: 1px solid gray;
     box-shadow: 0 0 5px gray;
     border-radius: 5px;
+    word-wrap: break-word;
   }
 
   .actions {
