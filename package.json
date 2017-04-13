@@ -30,6 +30,7 @@
     "express": "^4.14.1",
     "express-session": "^1.15.1",
     "font-awesome": "^4.7.0",
+    "is-image-url": "^1.1.8",
     "lodash": "^4.17.4",
     "masonry-layout": "^4.1.1",
     "mongodb": "^2.2.24",

@@ -30,8 +30,10 @@ const MemeSchema = new Schema({
 MemeSchema.statics.insertNew = function (memeInfo, userId) {
   const Meme = this;
   const meme = new Meme(Object.assign({}, _.pick(memeInfo, ["url", "description"]), {_addedBy: userId}));
-  meme.save();
-  return Meme.populate(meme, {path: "_addedBy"}).then(meme => meme.formatForUser());
+
+  return meme.save()
+    .then(meme => Meme.populate(meme, {path: "_addedBy"}))
+    .then(meme => meme.formatForUser());
 };
 
 MemeSchema.statics.findAllMemes = function () {

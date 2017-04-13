@@ -1,5 +1,7 @@
 const Meme = require('../models/meme');
 const auth = require('../middleware/auth');
+const isImageUrl = require('is-image-url');
+const {constructFullUrlFromRequest} = require('../helper/lib');
 
 module.exports = app => {
   app.get('/meme', (req, res) => {
@@ -25,6 +27,12 @@ module.exports = app => {
 
   app.put('/meme', auth, (req, res) => {
     let user = req.user;
+
+    const memeInfo = req.body;
+
+    if (memeInfo.url && !isImageUrl(memeInfo.url)) {
+      memeInfo.url = constructFullUrlFromRequest(req);
+    }
 
     Meme.insertNew(req.body, user._id).then(meme => {
       res.status(201).send(meme);
