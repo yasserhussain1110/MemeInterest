@@ -173,7 +173,7 @@
   }
 
   .remove {
-    margin-left: 60px;
+    margin-left: 35px;
     padding: 6px;
     cursor: pointer;
     color: darkred;
@@ -196,7 +196,7 @@
   }
 
   .likes {
-    margin-left: 0;
+    margin-left: 25px;
     padding: 6px;
   }
 
