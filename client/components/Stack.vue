@@ -42,7 +42,7 @@
 <style scoped>
   footer {
     text-align: center;
-    margin: 150px auto 0 auto;
+    margin: 320px auto 0 auto;
     padding: 0;
     background-color: white;
     border-radius: 20px;
