@@ -1,3 +1,12 @@
+/*
+  In your NODE ENV add a variable - SETTING.
+  It can have one of two values ['meme', 'pin'].
+  Chose 'pin' - for exact clone of Pinterest.
+  Chose 'meme' - for MemeInterest.
+
+  Default value is 'meme'
+ */
+
 const settings = {
   meme: {
     app: {
@@ -31,4 +40,4 @@ const settings = {
   }
 };
 
-module.exports = settings[process.env.SETTING];
+module.exports = settings[process.env.SETTING || 'meme'];

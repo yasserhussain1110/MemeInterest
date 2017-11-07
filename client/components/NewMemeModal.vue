@@ -25,7 +25,7 @@
 </template>
 
 <script>
-  import {newMemeModal} from '../../setting';
+  import {newMemeModal} from '../../settings';
   import {addMeme} from '../lib/fetch';
 
   const placeholderImgSrc = "/static/placeholder.png";

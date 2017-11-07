@@ -10,17 +10,16 @@ Object.keys(baseWebpackConfig.entry).forEach(function (name) {
   baseWebpackConfig.entry[name] = ['./webpack-utils/dev-client'].concat(baseWebpackConfig.entry[name])
 });
 
-
 module.exports = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({sourceMap: false})
   },
   devtool: false,
   plugins: [
+    // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: "'development'",
-        SETTING: `"${process.env.SETTING}"`
+        NODE_ENV: "'development'"
       }
     }),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
@@ -28,7 +27,7 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      title: require("./setting").app.title,
+      title: require("./settings").app.title,
       filename: 'index.html',
       template: 'client/index.html',
       inject: true
