@@ -29,7 +29,7 @@
 </template>
 
 <script>
-  import setting from '../../setting';
+  import setting from '../../settings';
   import {mapState} from 'vuex';
 
   export default {

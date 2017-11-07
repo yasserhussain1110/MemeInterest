@@ -45,7 +45,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     // you can customize output by editing /index.html
     // see https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      title: require("./setting").app.title,
+      title: require("./settings").app.title,
       filename: path.resolve('./dist/index.html'),
       template: 'client/index.html',
       inject: true,

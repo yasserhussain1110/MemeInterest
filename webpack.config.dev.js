@@ -10,7 +10,6 @@ Object.keys(baseWebpackConfig.entry).forEach(function (name) {
   baseWebpackConfig.entry[name] = ['./webpack-utils/dev-client'].concat(baseWebpackConfig.entry[name])
 });
 
-
 module.exports = merge(baseWebpackConfig, {
   module: {
     rules: utils.styleLoaders({sourceMap: false})
@@ -28,7 +27,7 @@ module.exports = merge(baseWebpackConfig, {
     new webpack.NoEmitOnErrorsPlugin(),
     // https://github.com/ampedandwired/html-webpack-plugin
     new HtmlWebpackPlugin({
-      title: require("./setting").app.title,
+      title: require("./settings").app.title,
       filename: 'index.html',
       template: 'client/index.html',
       inject: true

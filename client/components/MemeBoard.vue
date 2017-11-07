@@ -36,7 +36,7 @@
 
 <script>
   import Masonry from 'masonry-layout';
-  import setting from '../../setting';
+  import setting from '../../settings';
   import {mapState} from 'vuex';
   import {unlikeMeme, likeMeme, removeMeme} from '../lib/fetch';
 
