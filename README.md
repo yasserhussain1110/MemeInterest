@@ -2,6 +2,8 @@
 
 MemeInterest is a Pinterest Clone.
 
+![Front Page](readme-resources/front-page.png)
+
 Check it out here - [MemeInterest](https://meme-interest.herokuapp.com).
 
 
@@ -19,6 +21,7 @@ Check it out here - [MemeInterest](https://meme-interest.herokuapp.com).
   * [License](#license)
   * [Acknowledgments](#acknowledgments)
 
+
 ## Feature List
 * View all memes listed by users.
 * View memes listed by a particular user.
@@ -27,6 +30,7 @@ Check it out here - [MemeInterest](https://meme-interest.herokuapp.com).
 * Delete your memes
 * Like memes listed by other users
 
+![Add Meme](readme-resources/add-meme.png)
 
 ## Prerequisites
  These are what you need installed on your computer to use the application:
