@@ -16,10 +16,10 @@ module.exports = merge(baseWebpackConfig, {
   },
   devtool: false,
   plugins: [
+    // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': {
-        NODE_ENV: "'development'",
-        SETTING: `"${process.env.SETTING}"`
+        NODE_ENV: "'development'"
       }
     }),
     // https://github.com/glenjamin/webpack-hot-middleware#installation--usage
